@@ -1,0 +1,10 @@
+<%= form_with(model: project, local: true) do |form| %>
+  
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: 'form-control', placeholder: "Write a project name...", value: project.name %>
+  </div>
+
+  <%= form.submit "Save", class: 'btn btn-primary' %>
+<% end %>
+

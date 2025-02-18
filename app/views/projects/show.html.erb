@@ -1,0 +1,43 @@
+<div class="card my-5">
+  <div class="card-body">
+    <p id="notice"><%= notice %></p>
+
+    <h2 class="text-center">Project: <%= @project.name %></h2>
+    <div class="my-4">
+      <p>Status: <%= @project.status %></p>
+    </div>
+    <hr>
+    <h3>Change status:</h3>
+      <%= form_with url: change_status_project_path(@project), method: :post, local: true do |f| %>
+      <%= f.select :status, options_for_select(['Active', 'Inactive']) %>
+      <%= f.submit "Change" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="card my-1">
+  <div class="card-body">
+    <p class="font-weight-bold">Comments: </p>
+    <%= form_with url: add_comment_project_path(@project), method: :post, local: true do |f| %>
+      <div class="form-group">
+        <%= f.text_area :content, class: 'form-control', placeholder: "Add a comment..." %>
+        <%= f.submit 'Submit', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<h3>Comments Section:</h3>
+<ul>
+  <% @comments.each do |entry| %>
+    <li>
+      <%= entry.content %>
+      <br>
+      <small><%= entry.created_at.strftime("%b %d, %Y %H:%M") %></small>
+    </li>
+  <% end %>
+</ul>
+<%= link_to 'Delete', projects_path, method: :delete, class: 'btn btn-danger mr-2' %>
+<%= link_to 'Back', projects_path, class: 'btn btn-light' %>
+
+
